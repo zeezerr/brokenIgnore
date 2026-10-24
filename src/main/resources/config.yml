@@ -1,0 +1,170 @@
+# ============================================================
+#  World Events - configuration
+#  Messages use MiniMessage format: https://docs.advntr.dev/minimessage/
+#  Per-event overrides live under "events.<event_id>".
+#  Every setting below is optional; defaults are built in.
+# ============================================================
+
+auto-start: true              # run events automatically
+initial-delay-seconds: 60     # delay after server start before the first event
+intermission-seconds: 30      # gap between one event ending and the next starting
+default-duration-minutes: 60  # every event lasts this long unless overridden
+repeat-protection: 3          # an event can't be re-picked until this many others have run
+preview-next: false           # announce the next event before the current one ends (off = the spin is a surprise)
+next-warning-seconds: 60      # announce the next event this long before the current one ends
+min-players: 1                # don't auto-start an event with fewer players online
+sounds: true
+spin-animation: true          # slot-machine title animation before automatic and /worldevents random events
+
+# Every event has the same chance by default. Raise or lower one with events.<id>.weight.
+default-weight: 10
+
+messages:
+  prefix: "<gradient:#ffb347:#ffe259><bold>World Events</bold></gradient> <dark_gray>»</dark_gray> "
+  event-started: "{prefix}{color}<bold>{event}</bold> <gray>has started!"
+  event-resumed: "{prefix}{color}<bold>{event}</bold> <gray>is back after the restart - <yellow>{time}</yellow> left."
+  event-description: "{prefix}<gray>{description}"
+  event-duration: "{prefix}<gray>It lasts for <yellow>{duration}</yellow>."
+  event-ended: "{prefix}<gray>{event} has ended. Normal gameplay is restored."
+  next-warning: "{prefix}<gray>Coming up next: {color}<bold>{event}</bold>"
+  title-main: "{color}<bold>{event}"
+  title-sub: "<gray>{tagline}"
+  bossbar-title: "{color}<bold>{event}</bold> <dark_gray>|</dark_gray> <white>{time}"
+  no-permission: "{prefix}<red>You don't have permission to do that."
+
+# ------------------------------------------------------------
+#  Per-event settings. Each event supports:
+#    enabled: true/false
+#    weight: <number>            (overrides default-weight)
+#    duration-minutes: <number>  (overrides default-duration-minutes)
+#  plus the event-specific options shown below.
+# ------------------------------------------------------------
+events:
+  # message placeholders: {event} {color} {description} {tagline} {duration} {time}
+  speed_rush:
+    amplifier: 1            # 0 = Speed I, 1 = Speed II
+  heavy_feet:
+    amplifier: 0
+  super_jump:
+    amplifier: 2
+  regeneration_rush:
+    amplifier: 0
+  shopping_spree:
+    amplifier: 1
+
+  starvation:
+    exhaustion-per-second: 0.35
+  paranoia:
+    chance: 0.35            # chance per player every 5 seconds
+  no_escape:
+    fail-chance: 1.0        # 1.0 = pearls never work, 0.5 = half of throws fail
+  hotbar_havoc:
+    interval-seconds: 60
+  double_damage:
+    multiplier: 1.5
+  reduced_damage:
+    multiplier: 0.5
+  bounty_hour:
+    pair-cooldown-minutes: 30   # same killer/victim pair can't be farmed
+    rewards: ["DIAMOND:1-2", "EMERALD:3-6", "GOLDEN_APPLE:1-2"]
+
+  miners_haven:
+    allow-with-fortune: false   # Fortune tools don't get the extra doubling
+  diamond_fever:
+    chance: 0.15
+    allow-with-fortune: false
+  lucky_ores:
+    chance: 0.08
+    allow-with-fortune: true
+    bonus-rewards: ["DIAMOND:1", "EMERALD:1-2", "GOLD_INGOT:2-4", "IRON_INGOT:3-6", "LAPIS_LAZULI:4-8"]
+  lumberjacks_dream:
+    multiplier: 2
+  farming_frenzy:
+    chance: 0.5
+  forbidden_fruit:
+    chance: 0.05
+  xp_rush:
+    multiplier: 2.0
+  mob_loot_mania:
+    multiplier: 2
+    require-player-kill: true
+  treasure_fishing:
+    chance: 0.35
+    rewards: ["GOLD_INGOT:2-5", "EMERALD:1-3", "DIAMOND:1", "NAME_TAG:1", "SADDLE:1", "EXPERIENCE_BOTTLE:2-4", "NAUTILUS_SHELL:1"]
+
+  blood_moon:
+    spawn-chance: 0.3       # chance a natural hostile spawn is duplicated
+    spawn-cap: 40           # max hostile mobs within 32 blocks before duplicates stop
+    strength-level: 0       # 0 = Strength I
+    resistance-level: 0
+  mob_invasion:
+    spawn-chance: 0.6
+    spawn-cap: 40
+  creeper_season:
+    spawn-chance: 0.5
+    spawn-cap: 30
+  peaceful_hour:
+    block-chance: 1.0       # chance a natural hostile spawn is cancelled
+  treasure_rain:
+    interval-seconds: 15
+    loot: ["IRON_INGOT:1-3", "GOLD_NUGGET:3-8", "COAL:3-6", "COOKED_BEEF:2-4", "EXPERIENCE_BOTTLE:1-2", "ARROW:4-8", "DIAMOND:1"]
+  world_blessing:
+    interval-seconds: 90
+    effect-seconds: 30
+  world_curse:
+    interval-seconds: 90
+    effect-seconds: 20
+
+  mystery_gift:
+    rolls: 2
+    gifts: ["DIAMOND:1-3", "EMERALD:3-8", "GOLDEN_APPLE:1-3", "COOKED_BEEF:8-16", "IRON_INGOT:6-12", "EXPERIENCE_BOTTLE:8-16", "ENDER_PEARL:1-3"]
+  jackpot:
+    rewards: ["DIAMOND_BLOCK:1-2", "NETHERITE_INGOT:1", "ENCHANTED_GOLDEN_APPLE:1-2", "TOTEM_OF_UNDYING:1"]
+  supply_drop:
+    min-distance: 60
+    max-distance: 160
+    stacks: 6
+    loot: ["DIAMOND:2-4", "GOLDEN_APPLE:2-5", "IRON_INGOT:8-16", "GOLD_INGOT:6-12", "EMERALD:4-10", "COOKED_BEEF:16-32", "EXPERIENCE_BOTTLE:8-16", "ARROW:16-32", "OBSIDIAN:4-8", "ENDER_PEARL:2-4"]
+
+  # ---- newer events ----
+  fog_of_war:
+    interval-seconds: 45
+    effect-seconds: 10
+  knockback_madness:
+    strength: 0.7           # horizontal knockback added to melee hits (max 2.0)
+  bow_frenzy:
+    multiplier: 1.5
+  last_stand:
+    health-threshold: 6.0   # health points (6.0 = 3 hearts)
+    cooldown-seconds: 60    # per player, so it can't be re-triggered repeatedly
+    effect-seconds: 10
+  fireworks_festival:
+    interval-seconds: 12
+  coal_rush:
+    chance: 0.5
+    amount: 1
+  emerald_rush:
+    chance: 0.35
+    amount: 1
+  golden_hour:
+    chance: 0.4
+    amount: 1
+  gravel_gamble:
+    chance: 0.5
+    amount: 1
+  rich_harvest:
+    chance: 0.12
+    rewards: ["GOLDEN_CARROT:1-2", "GOLDEN_APPLE:1", "BREAD:2-3", "APPLE:2-4", "COOKED_BEEF:2-4"]
+  mob_treasure:
+    chance: 0.25
+    loot: ["EXPERIENCE_BOTTLE:1-3", "GOLDEN_CARROT:1-2", "IRON_NUGGET:3-6", "GOLD_NUGGET:3-6", "COOKED_BEEF:2-4", "EMERALD:1"]
+  spider_season:
+    spawn-chance: 0.5
+    spawn-cap: 30
+  enderman_migration:
+    spawn-chance: 0.25
+    spawn-cap: 15
+  lucky_day:
+    amplifier: 3            # 3 = Luck IV
+  mining_rush:
+    amplifier: 1            # 1 = Haste II

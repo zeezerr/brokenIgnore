@@ -1,0 +1,27 @@
+name: WorldEvents
+version: '${project.version}'
+main: dev.worldevents.WorldEventsPlugin
+api-version: '1.21'
+description: Random hourly server-wide world events for SMP servers.
+commands:
+  worldevents:
+    description: View and manage random world events.
+    usage: /worldevents help
+    aliases: [wevents]
+permissions:
+  worldevents.use:
+    description: View the current event, the event list and event info.
+    default: true
+  worldevents.reload:
+    description: Reload the configuration.
+    default: op
+  worldevents.weights:
+    description: View event weights.
+    default: op
+  worldevents.admin:
+    description: Start, stop, randomise, resume and toggle events (admins only).
+    default: op
+    children:
+      worldevents.use: true
+      worldevents.reload: true
+      worldevents.weights: true
